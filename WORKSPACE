@@ -10,9 +10,9 @@ http_archive(
 # rules_ts setup #
 ##################
 
-load("@aspect_rules_ts//ts:repositories.bzl", "LATEST_VERSION", "rules_ts_dependencies")
+load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
 
-rules_ts_dependencies(ts_version = LATEST_VERSION)
+rules_ts_dependencies(ts_version_from = "//:package.json")
 
 # Fetch and register node, if you haven't already
 load("@rules_nodejs//nodejs:repositories.bzl", "DEFAULT_NODE_VERSION", "nodejs_register_toolchains")
@@ -62,6 +62,14 @@ load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
 
 yarn_install(
     name = "npm",
+    # Needed only for ts_library
+    exports_directories_only = False,
     package_json = "//:package.json",
     yarn_lock = "//:yarn.lock",
+)
+
+http_archive(
+    name = "io_bazel_rules_webtesting",
+    sha256 = "e9abb7658b6a129740c0b3ef6f5a2370864e102a5ba5ffca2cea565829ed825a",
+    urls = ["https://github.com/bazelbuild/rules_webtesting/releases/download/0.3.5/rules_webtesting.tar.gz"],
 )

@@ -143,7 +143,33 @@ sys	0m0.002s
 ```
 
 ## 6. rules_nodejs `ts_library`
-TODO
+
+```
+$ bazel clean; time bazel build src/... && echo 'console.log()' >> src/billing/lib0/cmp0/cmp0.component.ts && time bazel build src/...
+INFO: Starting clean (this may take a while). Consider using --async if the clean takes more than several minutes.
+DEBUG: /shared/cache/bazel/user_base/86a05c19ad2571976ca81979ac7e3b79/external/build_bazel_rules_nodejs/index.bzl:73:14: yarn_install#yarn attribute not set and no repository named 'yarn' exists; installing default yarn
+INFO: Analyzed 50 targets (119 packages loaded, 1192 targets configured).
+INFO: Found 50 targets...
+INFO: Elapsed time: 11.611s, Critical Path: 10.72s
+INFO: 107 processes: 57 internal, 50 worker.
+INFO: Build Event Protocol files produced successfully.
+INFO: Build completed successfully, 107 total actions
+
+real	0m11.635s
+user	0m0.002s
+sys	0m0.010s
+DEBUG: /shared/cache/bazel/user_base/86a05c19ad2571976ca81979ac7e3b79/external/build_bazel_rules_nodejs/index.bzl:73:14: yarn_install#yarn attribute not set and no repository named 'yarn' exists; installing default yarn
+INFO: Analyzed 50 targets (0 packages loaded, 0 targets configured).
+INFO: Found 50 targets...
+INFO: Elapsed time: 0.960s, Critical Path: 0.89s
+INFO: 2 processes: 1 internal, 1 worker.
+INFO: Build Event Protocol files produced successfully.
+INFO: Build completed successfully, 2 total actions
+
+real	0m0.981s
+user	0m0.002s
+sys	0m0.007s
+```
 
 ## 7. bare tsc --watch
 ```

@@ -2,6 +2,15 @@
 # yarn lockfile v1
 
 
+"@bazel/concatjs@5.5.0":
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/@bazel/concatjs/-/concatjs-5.5.0.tgz#e6104ed70595cae59463ae6b0b5389252566221e"
+  integrity sha512-hwG+ahivR20Z3iTOlkUz3OdwnW/PUaZyyz8BIX+GNUTg6U3rPHK51CavUirMupOU/LRJ5GyCwBNAAtjCyquo2g==
+  dependencies:
+    protobufjs "6.8.8"
+    source-map-support "0.5.9"
+    tsutils "3.21.0"
+
 "@bazel/typescript@5.5.0":
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-5.5.0.tgz#053c255acb1b3cac23d24984cd8d5d5542fe1f7c"

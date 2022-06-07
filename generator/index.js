@@ -40,14 +40,18 @@ function write(to, content) {
 }
 
 // const LOAD = 'load("@aspect_rules_ts//ts:defs.bzl", "ts_project")'
-const LOAD = 'load("@npm//@bazel/typescript:index.bzl", "ts_project")'
+// const LOAD = 'load("@npm//@bazel/typescript:index.bzl", "ts_project")'
+const LOAD = 'load("@npm//@bazel/concatjs:index.bzl", ts_project = "ts_library")'
 
 const TS_ATTRS = `
+    # Needed with everything except ts_library
+    # declaration = True,
+
     # Uncomment to use worker mode
     # supports_workers = True,
 
     # Uncomment for swc transpiler
-    transpiler = swc_transpiler,
+    # transpiler = swc_transpiler,
 
     # Needed under worker mode for some reason:
     # tsconfig = {"compilerOptions": {"declaration": True}},
@@ -95,7 +99,6 @@ package(default_visibility = ["//:__subpackages__"])
  
 ts_project(
     name = "lib${modIdx}",
-    declaration = True,
     srcs = [
         "index.ts",
         ${tsFileAcc.map(s => `"${s}"`).join(',\n        ')}
@@ -116,7 +119,6 @@ package(default_visibility = ["//:__subpackages__"])
 
 ts_project(
     name = "${name}",
-    declaration = True,
     srcs = [
         "index.ts",
     ],
