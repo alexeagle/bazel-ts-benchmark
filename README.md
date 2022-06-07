@@ -49,6 +49,16 @@ user	0m0.002s
 sys	0m0.012s
 ```
 
+rules_nodejs `ts_library`
+TODO
+
+rules_nodejs `ts_project`
+TODO
+
+bare tsc w --watch
+TODO
+
+
 ## Methodology
 
 Run on Ubuntu 20.04 on a AMD® Ryzen 9 5900x 12-core processor × 24
