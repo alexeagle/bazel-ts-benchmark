@@ -1,5 +1,10 @@
 {
     "compilerOptions": {
-        "declaration": true
+        "declaration": true,
+        "baseUrl": ".",
+        "rootDirs": [
+            ".",
+            "bazel-out/k8-fastbuild/bin",
+        ]
     }
 }

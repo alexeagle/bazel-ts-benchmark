@@ -39,6 +39,24 @@ function write(to, content) {
     writeFileSync(to, content)
 }
 
+// const LOAD = 'load("@aspect_rules_ts//ts:defs.bzl", "ts_project")'
+const LOAD = 'load("@npm//@bazel/typescript:index.bzl", "ts_project")'
+
+const TS_ATTRS = `
+    # Uncomment to use worker mode
+    # supports_workers = True,
+
+    # Uncomment for swc transpiler
+    transpiler = swc_transpiler,
+
+    # Needed under worker mode for some reason:
+    # tsconfig = {"compilerOptions": {"declaration": True}},
+    # For rules_ts:
+    # tsconfig = "//:tsconfig",
+    # For rules_nodejs:
+    tsconfig = "//:tsconfig.json",
+`
+
 function makeFeatureModule(name) {
 
     //    ng('generate', 'module', name, '--module', 'app');
@@ -56,8 +74,10 @@ function makeFeatureModule(name) {
             //    ng('generate', 'component', `${name}/module${modIdx}/cmp${globalCmpIdx}`, '--module',
             //       `${name}/module${modIdx}`, '--export=true');
             let fileName = `cmp${globalCmpIdx}/cmp${globalCmpIdx}.component.ts`
-            let vars = [...Array(1000).keys()].map(f => `export const a${f}: number = ${f}`).join('\n')
-            write(`src/${name}/lib${modIdx}/${fileName}`, vars + '\nexport const a = ' + [...Array(1000).keys()].map(f => `a${f}`).join('+'))
+            let range1k = [...Array(1000).keys()]
+            let vars = range1k.map(f => `export const a${f}: number = ${f}`).join('\n')
+            let sum = 'export const a = ' + range1k.map(f => `a${f}`).join('+')
+            write(`src/${name}/lib${modIdx}/${fileName}`, `${vars}\n${sum}\n`)
             tsFileAcc.push(fileName);
             globalCmpIdx++;
         }
@@ -68,7 +88,7 @@ function makeFeatureModule(name) {
         // Write a BUILD file to build the lib
         write(`src/${name}/lib${modIdx}/BUILD.bazel`, `
 # Generated BUILD file, see /tools/generate.js
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+${LOAD}
 load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
 
 package(default_visibility = ["//:__subpackages__"])
@@ -80,9 +100,7 @@ ts_project(
         "index.ts",
         ${tsFileAcc.map(s => `"${s}"`).join(',\n        ')}
     ],
-    supports_workers = True,
-    transpiler = swc_transpiler,
-    tsconfig = {"compilerOptions": {"declaration": True}},
+${TS_ATTRS}
 )
 `);
     }
@@ -91,7 +109,7 @@ ts_project(
     // Write a BUILD file to build the feature
     write(`src/${name}/BUILD.bazel`, `
 # Generated BUILD file, see /tools/generate.js
-load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+${LOAD}
 load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
 
 package(default_visibility = ["//:__subpackages__"])
@@ -102,9 +120,7 @@ ts_project(
     srcs = [
         "index.ts",
     ],
-    supports_workers = True,
-    transpiler = swc_transpiler,
-    tsconfig = {"compilerOptions": {"declaration": True}},
+${TS_ATTRS}
     deps = [
         ${featureModuleDeps.map(s => `"${s}"`).join(',\n        ')}
     ],
