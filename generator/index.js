@@ -39,24 +39,24 @@ function write(to, content) {
     writeFileSync(to, content)
 }
 
-// const LOAD = 'load("@aspect_rules_ts//ts:defs.bzl", "ts_project")'
+const LOAD = 'load("@aspect_rules_ts//ts:defs.bzl", "ts_project")'
 // const LOAD = 'load("@npm//@bazel/typescript:index.bzl", "ts_project")'
-const LOAD = 'load("@npm//@bazel/concatjs:index.bzl", ts_project = "ts_library")'
+// const LOAD = 'load("@npm//@bazel/concatjs:index.bzl", ts_project = "ts_library")'
 
 const TS_ATTRS = `
     # Needed with everything except ts_library
-    # declaration = True,
+    declaration = True,
 
-    # Uncomment to use worker mode
+    # Default varies between rules_nodejs and rules_ts
     supports_workers = True,
 
     # Uncomment for swc transpiler
-    # transpiler = swc_transpiler,
+    transpiler = swc_transpiler,
 
     # For rules_ts:
-    # tsconfig = "//:tsconfig",
+    tsconfig = "//:tsconfig",
     # For rules_nodejs:
-    tsconfig = "//:tsconfig.json",
+    # tsconfig = "//:tsconfig.json",
 `
 
 function makeFeatureModule(name) {
