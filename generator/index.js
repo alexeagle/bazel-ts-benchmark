@@ -2,11 +2,11 @@
  * Generate lots of "feature" code to bulk out this example to a given size.
  * By default we generate 40 components and check that in.
  * You can generate more by passing arguments, for example
- * yarn generate 10 10
+ * node generator/index.js 10 10
  * will make 1000 components total: for each of the ten "features", it will have 10 modules, each
  * has 10 components.
  */
-const {existsSync, mkdirSync, readFileSync, writeFileSync} = require('fs');
+const {existsSync, mkdirSync, writeFileSync} = require('fs');
 const {dirname} = require('path');
 
 const featureNames = [
@@ -69,6 +69,7 @@ function makeFeatureModule(name) {
         write(`src/${name}/lib${modIdx}/BUILD.bazel`, `
 # Generated BUILD file, see /tools/generate.js
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
 
 package(default_visibility = ["//:__subpackages__"])
  
@@ -79,7 +80,9 @@ ts_project(
         "index.ts",
         ${tsFileAcc.map(s => `"${s}"`).join(',\n        ')}
     ],
-    tsconfig = "//:tsconfig",
+    supports_workers = True,
+    transpiler = swc_transpiler,
+    tsconfig = {"compilerOptions": {"declaration": True}},
 )
 `);
     }
@@ -89,6 +92,7 @@ ts_project(
     write(`src/${name}/BUILD.bazel`, `
 # Generated BUILD file, see /tools/generate.js
 load("@aspect_rules_ts//ts:defs.bzl", "ts_project")
+load("@aspect_rules_swc//swc:defs.bzl", "swc_transpiler")
 
 package(default_visibility = ["//:__subpackages__"])
 
@@ -98,7 +102,9 @@ ts_project(
     srcs = [
         "index.ts",
     ],
-    tsconfig = "//:tsconfig",
+    supports_workers = True,
+    transpiler = swc_transpiler,
+    tsconfig = {"compilerOptions": {"declaration": True}},
     deps = [
         ${featureModuleDeps.map(s => `"${s}"`).join(',\n        ')}
     ],
