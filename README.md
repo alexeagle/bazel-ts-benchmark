@@ -31,56 +31,58 @@ Profile: 1.profile.gz
 
 ## 2. aspect_rules_ts + persistent worker, typecheck + emit
 ```
-$ bazel clean; time bazel build ... ; echo 'console.log()' >> src/billing/lib0/cmp0/cmp0.component.ts ; time bazel build ...
+$ bazel clean; time bazel build src/... && echo 'console.log()' >> src/billing/lib0/cmp0/cmp0.component.ts && time bazel build src/...
 INFO: Starting clean (this may take a while). Consider using --async if the clean takes more than several minutes.
-INFO: Analyzed 101 targets (94 packages loaded, 550 targets configured).
-INFO: Found 101 targets...
-INFO: Elapsed time: 17.135s, Critical Path: 15.44s
-INFO: 326 processes: 58 internal, 1 linux-sandbox, 217 local, 50 worker.
+DEBUG: /shared/cache/bazel/user_base/86a05c19ad2571976ca81979ac7e3b79/external/build_bazel_rules_nodejs/index.bzl:73:14: yarn_install#yarn attribute not set and no repository named 'yarn' exists; installing default yarn
+INFO: Analyzed 100 targets (94 packages loaded, 503 targets configured).
+INFO: Found 100 targets...
+INFO: Elapsed time: 11.491s, Critical Path: 10.34s
+INFO: 330 processes: 11 internal, 52 linux-sandbox, 217 local, 50 worker.
 INFO: Build Event Protocol files produced successfully.
-INFO: Build completed successfully, 326 total actions
+INFO: Build completed successfully, 330 total actions
 
-real	0m17.156s
-user	0m0.014s
-sys	0m0.000s
-INFO: Analyzed 101 targets (0 packages loaded, 0 targets configured).
-INFO: Found 101 targets...
-INFO: Elapsed time: 1.586s, Critical Path: 1.51s
+real	0m11.513s
+user	0m0.002s
+sys	0m0.011s
+DEBUG: /shared/cache/bazel/user_base/86a05c19ad2571976ca81979ac7e3b79/external/build_bazel_rules_nodejs/index.bzl:73:14: yarn_install#yarn attribute not set and no repository named 'yarn' exists; installing default yarn
+INFO: Analyzed 100 targets (0 packages loaded, 0 targets configured).
+INFO: Found 100 targets...
+INFO: Elapsed time: 1.357s, Critical Path: 1.28s
 INFO: 3 processes: 1 internal, 1 local, 1 worker.
 INFO: Build Event Protocol files produced successfully.
 INFO: Build completed successfully, 3 total actions
 
-real	0m1.608s
-user	0m0.008s
-sys	0m0.000s
+real	0m1.378s
+user	0m0.004s
+sys	0m0.003s
 ```
 
 Profile: 2.profile.gz
 
 ## 3. aspect_rules_ts + persistent worker + swc transpiler
 ```
-$ bazel clean; time bazel build ... ; echo 'console.log()' >> src/billing/lib0/cmp0/cmp0.component.ts ; time bazel build ...
+$ bazel clean; time bazel build src/... && echo 'console.log()' >> src/billing/lib0/cmp0/cmp0.component.ts && time bazel build src/...
 INFO: Starting clean (this may take a while). Consider using --async if the clean takes more than several minutes.
-INFO: Analyzed 351 targets (134 packages loaded, 1646 targets configured).
-INFO: Found 351 targets...
-INFO: Elapsed time: 16.009s, Critical Path: 13.20s
-INFO: 786 processes: 234 internal, 261 linux-sandbox, 241 local, 50 worker.
+INFO: Analyzed 350 targets (134 packages loaded, 1599 targets configured).
+INFO: Found 350 targets...
+INFO: Elapsed time: 11.674s, Critical Path: 8.82s
+INFO: 790 processes: 187 internal, 312 linux-sandbox, 241 local, 50 worker.
 INFO: Build Event Protocol files produced successfully.
-INFO: Build completed successfully, 786 total actions
+INFO: Build completed successfully, 790 total actions
 
-real	0m16.035s
-user	0m0.005s
-sys	0m0.008s
-INFO: Analyzed 351 targets (0 packages loaded, 0 targets configured).
-INFO: Found 351 targets...
-INFO: Elapsed time: 1.383s, Critical Path: 1.29s
+real	0m11.698s
+user	0m0.002s
+sys	0m0.010s
+INFO: Analyzed 350 targets (0 packages loaded, 0 targets configured).
+INFO: Found 350 targets...
+INFO: Elapsed time: 1.233s, Critical Path: 1.12s
 INFO: 4 processes: 1 internal, 1 linux-sandbox, 1 local, 1 worker.
 INFO: Build Event Protocol files produced successfully.
 INFO: Build completed successfully, 4 total actions
 
-real	0m1.405s
-user	0m0.008s
-sys	0m0.000s
+real	0m1.256s
+user	0m0.002s
+sys	0m0.005s
 
 ```
 
@@ -150,25 +152,25 @@ INFO: Starting clean (this may take a while). Consider using --async if the clea
 DEBUG: /shared/cache/bazel/user_base/86a05c19ad2571976ca81979ac7e3b79/external/build_bazel_rules_nodejs/index.bzl:73:14: yarn_install#yarn attribute not set and no repository named 'yarn' exists; installing default yarn
 INFO: Analyzed 50 targets (119 packages loaded, 1192 targets configured).
 INFO: Found 50 targets...
-INFO: Elapsed time: 11.611s, Critical Path: 10.72s
+INFO: Elapsed time: 8.006s, Critical Path: 7.10s
 INFO: 107 processes: 57 internal, 50 worker.
 INFO: Build Event Protocol files produced successfully.
 INFO: Build completed successfully, 107 total actions
 
-real	0m11.635s
-user	0m0.002s
-sys	0m0.010s
+real	0m8.030s
+user	0m0.007s
+sys	0m0.005s
 DEBUG: /shared/cache/bazel/user_base/86a05c19ad2571976ca81979ac7e3b79/external/build_bazel_rules_nodejs/index.bzl:73:14: yarn_install#yarn attribute not set and no repository named 'yarn' exists; installing default yarn
 INFO: Analyzed 50 targets (0 packages loaded, 0 targets configured).
 INFO: Found 50 targets...
-INFO: Elapsed time: 0.960s, Critical Path: 0.89s
+INFO: Elapsed time: 0.931s, Critical Path: 0.86s
 INFO: 2 processes: 1 internal, 1 worker.
 INFO: Build Event Protocol files produced successfully.
 INFO: Build completed successfully, 2 total actions
 
-real	0m0.981s
-user	0m0.002s
-sys	0m0.007s
+real	0m0.952s
+user	0m0.005s
+sys	0m0.002s
 ```
 
 ## 7. bare tsc --watch

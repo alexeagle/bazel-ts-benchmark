@@ -48,13 +48,11 @@ const TS_ATTRS = `
     # declaration = True,
 
     # Uncomment to use worker mode
-    # supports_workers = True,
+    supports_workers = True,
 
     # Uncomment for swc transpiler
     # transpiler = swc_transpiler,
 
-    # Needed under worker mode for some reason:
-    # tsconfig = {"compilerOptions": {"declaration": True}},
     # For rules_ts:
     # tsconfig = "//:tsconfig",
     # For rules_nodejs:

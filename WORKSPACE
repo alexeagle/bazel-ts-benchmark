@@ -2,13 +2,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
     name = "aspect_rules_ts",
     #sha256 = "1f4854ac104881b62d341c19d6150d32ba582351b24a1f0b761c218456057017",
-    strip_prefix = "rules_ts-4e277ee1495fb4079c27ba887702acc7cdc7adb3",
-    url = "https://github.com/aspect-build/rules_ts/archive/4e277ee1495fb4079c27ba887702acc7cdc7adb3.tar.gz",
+    strip_prefix = "rules_ts-998d6b809b09c03631c69be169656c12acf2933e",
+    url = "https://github.com/aspect-build/rules_ts/archive/998d6b809b09c03631c69be169656c12acf2933e.tar.gz",
 )
-
-##################
-# rules_ts setup #
-##################
 
 load("@aspect_rules_ts//ts:repositories.bzl", "rules_ts_dependencies")
 
@@ -29,24 +25,19 @@ http_archive(
     url = "https://github.com/aspect-build/rules_swc/archive/refs/tags/v0.10.0.tar.gz",
 )
 
-###################
-# rules_swc setup #
-###################
-
 load("@aspect_rules_swc//swc:dependencies.bzl", "rules_swc_dependencies")
 
 rules_swc_dependencies()
 
-# Fetches a pre-built Rust-node binding from
-# https://github.com/swc-project/swc/releases.
-# If you'd rather compile it from source, you can use rules_rust, fetch the project,
-# then register the toolchain yourself. (Note, this is not yet documented)
 load("@aspect_rules_swc//swc:repositories.bzl", swc_version = "LATEST_VERSION", "swc_register_toolchains")
 
 swc_register_toolchains(
     name = "swc",
     swc_version = swc_version,
 )
+
+########################################################
+# Below only needed for legacy rules_nodejs comparison #
 
 http_archive(
     name = "build_bazel_rules_nodejs",
