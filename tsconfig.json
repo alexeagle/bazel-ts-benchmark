@@ -6,5 +6,6 @@
             ".",
             "bazel-out/k8-fastbuild/bin",
         ]
-    }
+    },
+    "exclude": ["bazel-*"]
 }
